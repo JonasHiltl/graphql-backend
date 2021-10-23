@@ -1,0 +1,43 @@
+{
+  "name": "sessions-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "postinstall": "yarn run generate",
+    "dev": "ts-node-dev --no-notify --respawn --transpile-only src",
+    "generate": "yarn run generate:nexus && yarn run generate:prisma",
+    "generate:nexus": "ts-node --transpile-only src/schema",
+    "generate:prisma": "prisma generate",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/graphql-iso-date": "^3.4.0",
+    "@types/graphql-upload": "^8.0.7",
+    "@types/jsonwebtoken": "^8.5.5",
+    "@types/node": "^16.10.3",
+    "@types/nodemailer": "^6.4.4",
+    "prisma": "^3.3.0",
+    "ts-node": "^10.2.1",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.4.3"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.3.0",
+    "apollo-server-core": "^3.3.0",
+    "apollo-server-express": "^3.3.0",
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "graphql": "^15.6.1",
+    "graphql-middleware": "^6.1.7",
+    "graphql-scalars": "^1.11.1",
+    "graphql-shield": "^7.5.0",
+    "graphql-upload": "^12.0.0",
+    "ibm-cos-sdk": "^1.10.2",
+    "jsonwebtoken": "^8.5.1",
+    "nexus": "^1.1.0",
+    "nodemailer": "^6.7.0"
+  }
+}

@@ -1,0 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String           @id @default(cuid())
+  username      String           @unique
+  email         String           @unique
+  emailVerified Boolean          @default(false)
+  firstname     String
+  lastname      String?
+  picture       String?
+  password      String
+  role          Role
+  followers     FollowRelation[] @relation("followersRelation")
+  following     FollowRelation[] @relation("followingRelation")
+  createdAt     DateTime         @default(now())
+
+  @@map(name: "user")
+}
+
+model FollowRelation {
+  fromId    String
+  toId      String
+  from      User     @relation("followingRelation", fields: [fromId], references: [id])
+  to        User     @relation("followersRelation", fields: [toId], references: [id])
+  accepted  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([fromId, toId])
+  @@map(name: "follow_relation")
+}
+
+enum Role {
+  USER
+  Dev
+  ADMIN
+}
